@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Spinner from "../layout/Spinner";
 import { Link } from "react-router-dom";
+import Moment from "react-moment";
 
 class Lyrics extends Component {
   state = {
@@ -40,7 +41,6 @@ class Lyrics extends Component {
         this.setState({
           album: res.data.message.body.album
         });
-        console.log(this.state.album);
       })
       .catch(err => console.log(err));
   }
@@ -49,7 +49,6 @@ class Lyrics extends Component {
   // check to make sure that the track and lyric objects have been added
   render() {
     const { track, lyrics, album } = this.state;
-    console.log(track);
     if (
       track === undefined ||
       lyrics === undefined ||
@@ -89,7 +88,8 @@ class Lyrics extends Component {
               {track.explicit === 0 ? "No" : "Yes"}
             </li>
             <li className="list-group-item">
-              <strong>Release Date</strong>: {album.album_release_date}
+              <strong>Release Date</strong>:{" "}
+              <Moment format="MM/DD/YYYY">{album.album_release_date}</Moment>
             </li>
           </ul>
         </React.Fragment>
